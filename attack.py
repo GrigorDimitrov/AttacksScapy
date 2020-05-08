@@ -1,3 +1,6 @@
+#!/usr/bin/python
+from scapy.all import *
+
 # run "sudo iptables -A OUTPUT -p tcp --tcp-flags RST RST --sport 80 -j DROP"
 # run "sudo iptables -A OUTPUT -p tcp --tcp-flags RST RST --dport 80 -j DROP"
 
@@ -17,11 +20,12 @@ parser.add_argument('-a', help='Attack: ek, flood, scan, sql, xss', required=Tru
 parser.add_argument('-dip', help='Destination IP', required=True)
 parser.add_argument('-sip', help='Source IP')
 parser.add_argument('-dport', help='Destination Port (default is 80)')
+parser.add_argument('-intf', help='Interface (required for ek attack)')
 args = parser.parse_args()
 
 # variables
 destination_ip = args.dip
-
+attack_interface = args.intf
 if args.dport != None:
     destination_port = int(args.dport)
 else:
@@ -36,7 +40,7 @@ else:
 # run the attack
 if args.a == "ek":
     print("running exploit kit")
-    exploit_kit.ek(source_ip,destination_ip)
+    exploit_kit.ek()
 elif args.a == "flood":
     print("running syn food")
     syn_flood.sf(destination_ip, destination_port)
