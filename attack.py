@@ -10,12 +10,13 @@ import syn_flood
 import sql
 import xss
 import syn_scan
+import web_client
 
 # disable RST
 print("Execute the commands below before running the script\n*                                                                       *\n* sudo iptables -A OUTPUT -p tcp --tcp-flags RST RST --dport 80 -j DROP *\n* sudo iptables -A OUTPUT -p tcp --tcp-flags RST RST --sport 80 -j DROP *\n*                                                                       *\n ")
 
 # attacks keywords
-print("Attacks Keywords:\nek - Exploit Kit (requires [-sip] and [-intf])\nflood - SYN Flood\nscan - SYN Scan\nsql - SQL Injection\nxss - Cross Site Scripting (XSS)\n")
+print("Attacks Keywords:\nek - Exploit Kit (requires -sip -dip -intf)\nflood - SYN Flood (requires -dip, optional -dport)\nscan - SYN Scan (requires -dip)\nsql - SQL Injection (requires -sip and -dip)\nxss - Cross Site Scripting (XSS) (requires -sip and -dip)\n")
 
 # let the user select attack
 parser = argparse.ArgumentParser(description="Select one of the following keywords: ek, flood, scan, sql, xss")
@@ -54,18 +55,31 @@ if args.a == "ek":
     else:
         print("running exploit kit")
         exploit_kit.ek(source_ip, destination_ip, attack_interface)
+
 elif args.a == "flood":
     print("running syn food")
     syn_flood.sf(destination_ip, destination_port)
+
 elif args.a == "scan":
     print("running syn scan")
     syn_scan.scan(destination_ip)
+
 elif args.a == "sql":
-    print("running sql injection")
-    sql.sql(destination_ip)
+    if args.sip is None:
+        msg = "Missing source IP address (-sip)"
+        raise argparse.ArgumentTypeError(msg)
+    else:
+        print("running sql injection")
+        sql.sql(source_ip, destination_ip)
+
 elif args.a == "xss":
-    print("running xss")
-    xss.xss(destination_ip)
+    if args.sip is None:
+        msg = "Missing source IP address (-sip)"
+        raise argparse.ArgumentTypeError(msg)
+    else:
+        print("running xss")
+        xss.xss(source_ip, destination_ip)
+
 else:
     msg = "Not a valid attack keyword"
     raise argparse.ArgumentTypeError(msg)

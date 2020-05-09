@@ -10,4 +10,10 @@ def scan(dest_ip):
         if 'flags=SA' in str(packet):
             print(str(packet).split(' ')[7])
 
+    # send TCP SYN to MySQL and PostgreSQL
+    ans,unans=sr(IP(dst=dest_ip)/TCP(flags='S', dport=([3306, 1433, 5432])))
 
+    # display ports which returned SYN/ACK
+    for packet in ans:
+        if 'flags=SA' in str(packet):
+            print(str(packet).split(' ')[7])
