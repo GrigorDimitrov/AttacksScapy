@@ -11,11 +11,14 @@ import sql
 import xss
 import syn_scan
 
+# disable RST
+print("Execute the commands below before running the script\n*                                                                       *\n* sudo iptables -A OUTPUT -p tcp --tcp-flags RST RST --dport 80 -j DROP *\n* sudo iptables -A OUTPUT -p tcp --tcp-flags RST RST --sport 80 -j DROP *\n*                                                                       *\n ")
+
 # attacks keywords
-print("Attacks Keywords:\nek - Exploit Kit\nflood - SYN Flood\nscan - SYN Scan\nsql - SQL Injection\nxss - Cross Site Scripting (XSS)\n")
+print("Attacks Keywords:\nek - Exploit Kit (requires [-sip] and [-intf])\nflood - SYN Flood\nscan - SYN Scan\nsql - SQL Injection\nxss - Cross Site Scripting (XSS)\n")
 
 # let the user select attack
-parser = argparse.ArgumentParser(description='Select one of the following keywords: ek, flood, scan, sql, xss')
+parser = argparse.ArgumentParser(description="Select one of the following keywords: ek, flood, scan, sql, xss")
 parser.add_argument('-a', help='Attack: ek, flood, scan, sql, xss', required=True)
 parser.add_argument('-dip', help='Destination IP', required=True)
 parser.add_argument('-sip', help='Source IP')
@@ -25,7 +28,10 @@ args = parser.parse_args()
 
 # variables
 destination_ip = args.dip
-attack_interface = args.intf
+
+if args.intf != None:
+    attack_interface = args.intf
+
 if args.dport != None:
     destination_port = int(args.dport)
 else:
@@ -39,8 +45,15 @@ else:
 
 # run the attack
 if args.a == "ek":
-    print("running exploit kit")
-    exploit_kit.ek()
+    if args.sip is None:
+        msg = "Missing source IP address (-sip)"
+        raise argparse.ArgumentTypeError(msg)
+    elif args.intf is None:
+        msg = "Missing interface (-intf)"
+        raise argparse.ArgumentTypeError(msg)
+    else:
+        print("running exploit kit")
+        exploit_kit.ek(source_ip, destination_ip, attack_interface)
 elif args.a == "flood":
     print("running syn food")
     syn_flood.sf(destination_ip, destination_port)
