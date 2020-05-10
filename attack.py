@@ -10,7 +10,6 @@ import syn_flood
 import sql
 import xss
 import syn_scan
-import web_client
 
 # disable RST
 print("Execute the commands below before running the script\n*                                                                       *\n* sudo iptables -A OUTPUT -p tcp --tcp-flags RST RST --dport 80 -j DROP *\n* sudo iptables -A OUTPUT -p tcp --tcp-flags RST RST --sport 80 -j DROP *\n*                                                                       *\n ")
