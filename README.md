@@ -1,6 +1,7 @@
 # AttacksScapy Tutorial
+The main idea is generating malicious traffic for analysts training. Scapy s used to simulate realistic attacks. The attacks are picked up by an IDS. This tool serves as a cyber-range where analysts can learn how to identify cyber-attacks.
 This tutorial is the second part of an analysts training framework. Part one can be found here https://github.com/GrigorDimitrov/sop  
-Scapy is a Python package used to generate malicious traffic. Analysts can launch attack scripts from Kali Linux against Metasploitable. Security Onion is monitoring the traffic. The attacks are matched by Snort rules and alerts are generated.
+Scapy is a Python package used to generate malicious traffic. Analysts can launch attack scripts between VMs. Security Onion is monitoring the traffic. The attacks are matched by Snort rules and alerts are generated.
 
 ## Creating Virtual Machines
 Download Metasploitable2 from here https://sourceforge.net/projects/metasploitable/files/Metasploitable2/. 
