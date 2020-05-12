@@ -14,7 +14,7 @@ def sql(src_ip, dst_ip):
     # Generating TCP layer:
     SYN = TCP(sport = random.randint(1,65535), dport=80)
     
-    #send SYNACK to remote host AND receive ACK.
+    #send SYN to remote host and receive SYN/ACK.
     ANSWER=sr1(ip/SYN)
 
     # send ACK
