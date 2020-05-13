@@ -25,7 +25,7 @@ You will be presented with instructions regarding the tool usage. The Linux kern
 sudo iptables -A OUTPUT -p tcp --tcp-flags RST RST --sport 80 -j DROP
 
 ## Running Attacks
-Different attacks require different parameters. For example, SYN Flood attack can be launched by specifying the target IP address using -dip tag (destionation IP). The script will send 1000 SYN packets to different ports on Metasploitable. This will generate an alert in Security Onion.
+Different attacks require different parameters. For example, SYN Flood attack can be launched by specifying the target IP address using -dip tag (destination IP). The script will send 1000 SYN packets to different ports on Metasploitable. This will generate an alert in Security Onion.
 >sudo python3 attack.py -dip 192.168.204.129 -a flood
 
 Go to Security Onion and open Sguil. Notice the “TCP SYN flood attack detected” alert. Open a transcript of the event to see more details about the attack.
