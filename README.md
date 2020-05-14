@@ -24,6 +24,9 @@ You will be presented with instructions regarding the tool usage. The Linux kern
 >sudo iptables -A OUTPUT -p tcp --tcp-flags RST RST --dport 80 -j DROP
 sudo iptables -A OUTPUT -p tcp --tcp-flags RST RST --sport 80 -j DROP
 
+***For Windows Only***  
+You can check the name of you Windows interface name by using the Scappy method *get_windows_if_list()*. You would need Scapy installed on your system or in a virtual venv.
+
 ## Running Attacks
 Different attacks require different parameters. For example, SYN Flood attack can be launched by specifying the target IP address using -dip tag (destination IP). The script will send 1000 SYN packets to different ports on Metasploitable. This will generate an alert in Security Onion.
 >sudo python3 attack.py -dip 192.168.204.129 -a flood
