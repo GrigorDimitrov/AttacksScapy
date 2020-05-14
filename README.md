@@ -12,7 +12,7 @@ Run the VMs and try pinging between them. Verify network connectivity on Kali.
 
 ## Downloading Scripts
 The attacks scripts can be downloaded from GitHub. Open a terminal on Kali and type in:
->sudo git clone https://github.com/GrigorDimitrov/AttacksScapy.git
+>sudo git clone https://github.com/GrigorDimitrov/ScapyAttacks.git
 
 Scapy is required to run the tool. Kali Linux should have Python 3 installed.
 >sudo pip install --pre scapy[basic]
